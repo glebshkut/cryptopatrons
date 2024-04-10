@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     CryptoPatrons: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [],
@@ -196,6 +196,57 @@ const deployedContracts = {
             },
           ],
           stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "username",
+              type: "string",
+            },
+          ],
+          name: "getProfile",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "username",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "description",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "profilePictureURL",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "minDonationUSD",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string[]",
+                  name: "prohibitedWords",
+                  type: "string[]",
+                },
+              ],
+              internalType: "struct CryptoPatrons.CreatorProfile",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {

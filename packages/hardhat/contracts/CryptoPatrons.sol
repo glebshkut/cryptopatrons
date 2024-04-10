@@ -72,6 +72,16 @@ contract CryptoPatrons is Ownable {
 		return 3456;
 	}
 
+	function getProfile(
+		string memory username
+	) public view returns (CreatorProfile memory) {
+		require(
+			bytes(_profiles[username].name).length != 0,
+			"Profile does not exist"
+		);
+		return _profiles[username];
+	}
+
 	// Function for making donations
 	function makeDonation(
 		string memory username,
