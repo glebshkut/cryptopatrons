@@ -69,7 +69,7 @@ contract CryptoPatrons is Ownable {
 
 	function getLatestPrice() public pure returns (int) {
 		// (, int price, , , ) = priceFeed.latestRoundData();
-		return 10;
+		return 3456;
 	}
 
 	// Function for making donations
@@ -115,7 +115,7 @@ contract CryptoPatrons is Ownable {
 	}
 
 	// Add existing contract functions here...
-	function _convertUSDToETH(uint usdAmount) public view returns (uint) {
+	function _convertUSDToETH(uint usdAmount) public pure returns (uint) {
 		int price = getLatestPrice();
 		require(price > 0, "Invalid price data");
 		uint ethPriceInUsd = uint(price); // Convert price to uint
@@ -145,6 +145,32 @@ contract CryptoPatrons is Ownable {
 			minDonationUSD,
 			prohibitedWords
 		);
+		emit ProfileUpdated(username);
+	}
+
+	function createProfile(
+		string memory username,
+		string memory name,
+		string memory description,
+		string memory profilePictureURL,
+		uint minDonationUSD,
+		string[] memory prohibitedWords
+	) public {
+		require(
+			_profileOwners[username] == address(0),
+			"Username already taken"
+		);
+
+		_profiles[username] = CreatorProfile(
+			name,
+			username,
+			description,
+			profilePictureURL,
+			minDonationUSD,
+			prohibitedWords
+		);
+		_profileOwners[username] = msg.sender;
+
 		emit ProfileUpdated(username);
 	}
 
