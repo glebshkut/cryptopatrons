@@ -1579,7 +1579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:^1.3.1":
+"@noble/hashes@npm:^1.3.1, @noble/hashes@npm:^1.4.0":
   version: 1.4.0
   resolution: "@noble/hashes@npm:1.4.0"
   checksum: 8ba816ae26c90764b8c42493eea383716396096c5f7ba6bea559993194f49d80a73c081f315f4c367e51bd2d5891700bcdfa816b421d24ab45b41cb03e4f3342
@@ -2173,9 +2173,9 @@ __metadata:
   linkType: hard
 
 "@rushstack/eslint-patch@npm:^1.3.3":
-  version: 1.10.1
-  resolution: "@rushstack/eslint-patch@npm:1.10.1"
-  checksum: ea539ec4d44632cc4a57aa12a37c6d79905b90f94f2c37788fcc0048eae542091dd791177a0adcf51a67fd379f954c8754e2e689ff80af460f531e6bdb03d78d
+  version: 1.10.2
+  resolution: "@rushstack/eslint-patch@npm:1.10.2"
+  checksum: 2bac46e0f662c6b9c1f1d2268e4165a779331b9229eaeeb360852feaecdc5cb4adf8e1a36ac510b3545a83f83de702811b984afe26ec7d4a79e1c0ea708e2bfe
   languageName: node
   linkType: hard
 
@@ -2881,12 +2881,12 @@ __metadata:
   linkType: hard
 
 "@types/eslint@npm:~8":
-  version: 8.56.7
-  resolution: "@types/eslint@npm:8.56.7"
+  version: 8.56.8
+  resolution: "@types/eslint@npm:8.56.8"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 26b036e27e369981843585248591b15068f1ba3ac44a01c09c34717f0b57cbb422a7ed2b497b51093b0ead97739e187dde65bbd5893ec901672dac39f41c8038
+  checksum: b33024ac7bac6d535caa0d5e1f3cdbb527c6b23c10bc3e18d5bc9b6a8b8b593599cb6526fde778e702574b55aac1ab9b2387f22e32ae1a2cb9c569ef29802fc5
   languageName: node
   linkType: hard
 
@@ -2975,11 +2975,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 20.12.6
-  resolution: "@types/node@npm:20.12.6"
+  version: 20.12.7
+  resolution: "@types/node@npm:20.12.7"
   dependencies:
     undici-types: ~5.26.4
-  checksum: d16272276349244b1b6f15b0a23ce380efe3dfe46ace1ae37d58e791a8e53d832a2dc72d1afe01d7e5bb0ec1fba70ddd58b1da87921ec913e600331b3b906be9
+  checksum: 7cc979f7e2ca9a339ec71318c3901b9978555257929ef3666987f3e447123bc6dc92afcc89f6347e09e07d602fde7d51bcddea626c23aa2bb74aeaacfd1e1686
   languageName: node
   linkType: hard
 
@@ -5242,9 +5242,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001406, caniuse-lite@npm:^1.0.30001587, caniuse-lite@npm:^1.0.30001599":
-  version: 1.0.30001607
-  resolution: "caniuse-lite@npm:1.0.30001607"
-  checksum: 45fe5da6ae408cab5e2f01078cb43620ce64f4c0dcc07c81284717ccaf3adaee373ecac8febe8507e0f0ede32ebe105146a5253402d8339db745258f3ac332e3
+  version: 1.0.30001608
+  resolution: "caniuse-lite@npm:1.0.30001608"
+  checksum: 7ae62689ca358cd3bdb89b2db9b4841812299f8a0b3ab94b52e4548778bd5740814617c0e0b2504b6bfaf47acc2472e1730393bd2027d646acbe8dc8206ad9e7
   languageName: node
   linkType: hard
 
@@ -6395,9 +6395,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.668":
-  version: 1.4.730
-  resolution: "electron-to-chromium@npm:1.4.730"
-  checksum: c2eec8a367e86655076ba0b3bf59f2134ee347ebe3dbf8648a766c3773eb2fb7027c49f1342b82b0606b415cc72597e5c4576166eb348a0c30536e74c8f4df8c
+  version: 1.4.733
+  resolution: "electron-to-chromium@npm:1.4.733"
+  checksum: 2fd0efec8f3d7c1a503dd57b18a66ee73f5515e641278b50704833c37543e23a5b03f25a98b75fba06397dd66be70ed5bd7804dafaf9fede4e50dec2b4ca9fd1
   languageName: node
   linkType: hard
 
@@ -7400,11 +7400,11 @@ __metadata:
   linkType: hard
 
 "ethereum-bloom-filters@npm:^1.0.6":
-  version: 1.0.10
-  resolution: "ethereum-bloom-filters@npm:1.0.10"
+  version: 1.1.0
+  resolution: "ethereum-bloom-filters@npm:1.1.0"
   dependencies:
-    js-sha3: ^0.8.0
-  checksum: 4019cc6f9274ae271a52959194a72f6e9b013366f168f922dc3b349319faf7426bf1010125ee0676b4f75714fe4a440edd4e7e62342c121a046409f4cd4c0af9
+    "@noble/hashes": ^1.4.0
+  checksum: 9565cd1e2002509852a05461cc93ee6874e8f961e0f66929cfc34d05f6f451fcfa4df287f8735ee184e4ba5f6e63a76a3c69bbeda5dda5bdf486f68fb9fa61f3
   languageName: node
   linkType: hard
 
@@ -12123,6 +12123,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.51.2":
+  version: 7.51.2
+  resolution: "react-hook-form@npm:7.51.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: d725475587bc64c048927c0442693630fe1238e424d48996626a394811e495fb7019b20a657de6bb2e77385044592dd5d885fafb420d12bffc8a07c5a7d85872
+  languageName: node
+  linkType: hard
+
 "react-hot-toast@npm:~2.4.0":
   version: 2.4.1
   resolution: "react-hot-toast@npm:2.4.1"
@@ -12732,6 +12741,7 @@ __metadata:
     husky: ~8.0.3
     lint-staged: ~13.2.2
     next: ~14.0.4
+    react-hook-form: ^7.51.2
     vercel: ~32.4.1
   languageName: unknown
   linkType: soft
@@ -13025,12 +13035,12 @@ __metadata:
   linkType: hard
 
 "socks@npm:^2.7.1":
-  version: 2.8.1
-  resolution: "socks@npm:2.8.1"
+  version: 2.8.3
+  resolution: "socks@npm:2.8.3"
   dependencies:
     ip-address: ^9.0.5
     smart-buffer: ^4.2.0
-  checksum: 29586d42e9c36c5016632b2bcb6595e3adfbcb694b3a652c51bc8741b079c5ec37bdd5675a1a89a1620078c8137208294991fabb50786f92d47759a725b2b62e
+  checksum: 7a6b7f6eedf7482b9e4597d9a20e09505824208006ea8f2c49b71657427f3c137ca2ae662089baa73e1971c62322d535d9d0cf1c9235cf6f55e315c18203eadd
   languageName: node
   linkType: hard
 

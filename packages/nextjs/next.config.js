@@ -22,6 +22,12 @@ const nextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "i.giphy.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

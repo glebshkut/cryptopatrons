@@ -41,7 +41,7 @@ contract CryptoPatrons is Ownable {
 
 	// Events
 	event ProfileUpdated(string username);
-	event DonationMade(string username, uint amount, string message);
+	event DonationMade(string username, string donorName, uint amount, string message);
 	event DonationGoalCreated(
 		string username,
 		string goalDescription,
@@ -114,8 +114,12 @@ contract CryptoPatrons is Ownable {
 		_donations[username].push(
 			Donation(donorName, message, msg.value - feeAmount, block.timestamp)
 		);
-		emit DonationMade(username, msg.value - feeAmount, message);
+		emit DonationMade(username, donorName, msg.value - feeAmount, message);
 	}
+
+  function getAllDonations(string memory username) public view returns (Donation[] memory) {
+    return _donations[username];
+  }
 
 	// Function to withdraw collected fees
 	function withdrawFees() public onlyOwner {
