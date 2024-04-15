@@ -72,6 +72,10 @@ contract CryptoPatrons is Ownable {
 		return 3456;
 	}
 
+  function getAllDonations(string memory username) public view returns (Donation[] memory) {
+    return _donations[username];
+  }
+
 	function getProfile(
 		string memory username
 	) public view returns (CreatorProfile memory) {
@@ -116,10 +120,6 @@ contract CryptoPatrons is Ownable {
 		);
 		emit DonationMade(username, donorName, msg.value - feeAmount, message);
 	}
-
-  function getAllDonations(string memory username) public view returns (Donation[] memory) {
-    return _donations[username];
-  }
 
 	// Function to withdraw collected fees
 	function withdrawFees() public onlyOwner {
