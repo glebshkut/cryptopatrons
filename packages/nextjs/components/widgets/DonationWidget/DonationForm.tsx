@@ -33,11 +33,28 @@ export default function DonationForm({ username }: { username: string }) {
   const onSubmit: SubmitHandler<DonationValues> = () => writeAsync();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-      <input {...register("donorName")} />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-3">
+      <div>
+        <div className="label-text">Your name:</div>
+        <input
+          className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
+          {...register("donorName")}
+          placeholder="Your name..."
+        />
+      </div>
       {errors.donorName && <span>This field is required</span>}
-      <input {...register("message", { required: true })} />
-      <EtherInput value={ethAmount} onChange={value => setEthAmount(value)} />
+      <div>
+        <div className="label-text">Your message:</div>
+        <textarea
+          className="textarea textarea-primary w-full rounded-md !outline-none"
+          {...register("message", { required: true })}
+          placeholder="Leave a message..."
+        />
+      </div>
+      <div>
+        <div className="label-text">Amount:</div>
+        <EtherInput value={ethAmount} onChange={value => setEthAmount(value)} />
+      </div>
       <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`}>
         Send
       </button>

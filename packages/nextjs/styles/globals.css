@@ -5,6 +5,8 @@
 :root,
 [data-theme] {
   background: oklch(var(--b2));
+  --header-height: 50px;
+  --page-height: calc(100vh - var(--header-height));
 }
 
 body {

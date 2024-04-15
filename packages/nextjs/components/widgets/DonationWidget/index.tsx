@@ -13,10 +13,16 @@ export default function DonationWidget({ username }: { username: string }) {
   });
 
   return isProfileReady && profile ? (
-    <div className="flex flex-col">
-      <div className="flex flex-row items-center">
-        <Image src={profile.profilePictureURL} width={100} height={100} className="rounded-full" alt="profile image" />
-        <span>{profile?.username}</span>
+    <div className="flex flex-col gap-3 items-center w-1/2">
+      <div className="flex flex-row gap-3 w-full justify-center items-center">
+        <div className="text-3xl flex items-center gap-2">
+          Donate to <span className="text-4xl font-bold">{profile.username}</span>
+        </div>
+        <div className="avatar">
+          <div className="rounded-md">
+            <Image src={profile.profilePictureURL} width={50} height={50} alt="profile image" />
+          </div>
+        </div>
       </div>
       <DonationForm username={username} />
     </div>

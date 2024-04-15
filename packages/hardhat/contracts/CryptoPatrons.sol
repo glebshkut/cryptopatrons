@@ -41,17 +41,24 @@ contract CryptoPatrons is Ownable {
 
 	// Events
 	event ProfileUpdated(string username);
-	event DonationMade(string username, string donorName, uint amount, string message);
+	event DonationMade(
+		string username,
+		string donorName,
+		uint amount,
+		string message
+	);
 	event DonationGoalCreated(
 		string username,
 		string goalDescription,
 		uint goalAmount
 	);
 	event FeesUpdated(uint feePercentage, uint minimumRequiredFeeUSD);
+  event DonationWithdrawn(string username, uint amount);
 
 	mapping(string => CreatorProfile) private _profiles;
 	mapping(string => Donation[]) private _donations;
 	mapping(string => address) private _profileOwners;
+	mapping(string => uint) private _donationsAmount;
 
 	uint public feePercentage = 0;
 	uint public minimumRequiredFeeUSD = 0;
@@ -72,9 +79,11 @@ contract CryptoPatrons is Ownable {
 		return 3456;
 	}
 
-  function getAllDonations(string memory username) public view returns (Donation[] memory) {
-    return _donations[username];
-  }
+	function getAllDonations(
+		string memory username
+	) public view returns (Donation[] memory) {
+		return _donations[username];
+	}
 
 	function getProfile(
 		string memory username
@@ -118,6 +127,7 @@ contract CryptoPatrons is Ownable {
 		_donations[username].push(
 			Donation(donorName, message, msg.value - feeAmount, block.timestamp)
 		);
+		_donationsAmount[username] += msg.value - feeAmount;
 		emit DonationMade(username, donorName, msg.value - feeAmount, message);
 	}
 
@@ -188,5 +198,16 @@ contract CryptoPatrons is Ownable {
 		emit ProfileUpdated(username);
 	}
 
-	// Add other functions as needed...
+	// Function to withdraw donations
+	function withdrawDonations(string memory username) public {
+		require(
+			_profileOwners[username] == msg.sender,
+			"Not authorized to withdraw funds for this profile"
+		);
+		uint amountAvailable = _donationsAmount[username];
+		require(amountAvailable > 0, "No donations to withdraw");
+		payable(msg.sender).transfer(amountAvailable);
+		_donationsAmount[username] = 0;
+		emit DonationWithdrawn(username, amountAvailable);
+	}
 }

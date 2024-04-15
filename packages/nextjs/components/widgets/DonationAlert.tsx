@@ -12,6 +12,7 @@ import { DonationAlertValues } from "~~/types/donation";
 
 export default function DonationWidget({ username }: { username: string }) {
   const [recentEvent, setRecentEvent] = useState<Log | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
   const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
   const searchParams = useSearchParams();
   const usdMode = searchParams.get("usdMode");
@@ -25,7 +26,9 @@ export default function DonationWidget({ username }: { username: string }) {
     eventName: "DonationMade",
     listener: (logs: Log[]) => {
       const donations = filterDonations(logs);
-      if (donations[0].blockNumber !== recentEvent?.blockNumber) {
+      console.log("🚀 ~ DonationWidget ~ donations:", donations);
+      if (donations[0].blockHash !== recentEvent?.blockHash) {
+        setShowAlert(true);
         setRecentEvent(donations[0]);
       }
     },
@@ -34,7 +37,7 @@ export default function DonationWidget({ username }: { username: string }) {
   useEffect(() => {
     if (recentEvent) {
       const timer = setTimeout(() => {
-        setRecentEvent(null); // Hide the event after 5 seconds
+        setShowAlert(false);
       }, 5000);
       return () => clearTimeout(timer); // Clean up the timeout
     }
@@ -42,10 +45,9 @@ export default function DonationWidget({ username }: { username: string }) {
 
   if (recentEvent) {
     const donationValues: DonationAlertValues = (recentEvent as any).args as DonationAlertValues;
-    console.log("🚀 ~ DonationWidget ~ donationValues:", donationValues.amount);
     return (
       <div className="flex flex-col items-center">
-        {recentEvent && (
+        {recentEvent && showAlert && (
           <>
             <Image src="https://i.giphy.com/duNowzaVje6Di3hnOu.webp" width={504} height={336} alt="alert gif" />
             <span>
