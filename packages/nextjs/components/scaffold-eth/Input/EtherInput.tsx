@@ -5,7 +5,7 @@ import { useGlobalState } from "~~/services/store/store";
 
 const MAX_DECIMALS_USD = 2;
 
-function etherValueToDisplayValue(usdMode: boolean, etherValue: string, nativeCurrencyPrice: number) {
+export function etherValueToDisplayValue(usdMode: boolean, etherValue: string, nativeCurrencyPrice: number) {
   if (usdMode && nativeCurrencyPrice) {
     const parsedEthValue = parseFloat(etherValue);
     if (Number.isNaN(parsedEthValue)) {
@@ -124,6 +124,7 @@ export const EtherInput = ({
             className="btn btn-primary h-[2.2rem] min-h-[2.2rem]"
             onClick={toggleMode}
             disabled={!internalUsdMode && !nativeCurrencyPrice}
+            type="button"
           >
             <ArrowsRightLeftIcon className="h-3 w-3 cursor-pointer" aria-hidden="true" />
           </button>

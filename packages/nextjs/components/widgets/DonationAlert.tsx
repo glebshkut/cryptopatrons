@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { etherValueToDisplayValue } from "../scaffold-eth";
 import { Log, formatEther } from "viem";
 import { useScaffoldEventSubscriber } from "~~/hooks/scaffold-eth";
 import { mainContractName } from "~~/lib/contract";
-import { DonationValues } from "~~/types/donation";
+import { useGlobalState } from "~~/services/store/store";
+import { DonationAlertValues } from "~~/types/donation";
 
 export default function DonationWidget({ username }: { username: string }) {
   const [recentEvent, setRecentEvent] = useState<Log | null>(null);
+  const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
+  const searchParams = useSearchParams();
+  const usdMode = searchParams.get("usdMode");
 
   const filterDonations = (logs: Log[]) => {
     return logs.filter((log: Log) => (log as any).args.username === username);
@@ -18,12 +24,10 @@ export default function DonationWidget({ username }: { username: string }) {
     contractName: mainContractName,
     eventName: "DonationMade",
     listener: (logs: Log[]) => {
-      console.log("DonationMade", logs);
       const donations = filterDonations(logs);
       if (donations[0].blockNumber !== recentEvent?.blockNumber) {
         setRecentEvent(donations[0]);
       }
-      console.log("🚀 ~ DonationWidget ~ donations:", donations);
     },
   });
 
@@ -37,14 +41,17 @@ export default function DonationWidget({ username }: { username: string }) {
   }, [recentEvent]);
 
   if (recentEvent) {
-    const donationValues: DonationValues = (recentEvent as any).args as DonationValues;
+    const donationValues: DonationAlertValues = (recentEvent as any).args as DonationAlertValues;
+    console.log("🚀 ~ DonationWidget ~ donationValues:", donationValues.amount);
     return (
       <div className="flex flex-col items-center">
         {recentEvent && (
           <>
             <Image src="https://i.giphy.com/duNowzaVje6Di3hnOu.webp" width={504} height={336} alt="alert gif" />
             <span>
-              {donationValues.donorName} donated {formatEther(donationValues.amount as unknown as bigint)} ETH
+              {donationValues.donorName} sent{" "}
+              {etherValueToDisplayValue(!!usdMode, formatEther(donationValues.amount).toString(), nativeCurrencyPrice)}{" "}
+              {!!usdMode ? "USD" : "ETH"}
             </span>
             <span>{donationValues.message}</span>
           </>
