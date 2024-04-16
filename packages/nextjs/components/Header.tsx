@@ -8,6 +8,13 @@ import { Bars3Icon, UserIcon } from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
+export enum AppRoutes {
+  HOME = "/",
+  REGISTER = "/register",
+  USER_DONATE = "/donate",
+  USER_WIDGET = "/widget",
+}
+
 type HeaderMenuLink = {
   label: string;
   href: string;
@@ -17,11 +24,11 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Home",
-    href: "/",
+    href: AppRoutes.HOME,
   },
   {
     label: "Register",
-    href: "/register",
+    href: AppRoutes.REGISTER,
     icon: <UserIcon className="h-4 w-4" />,
   },
 ];

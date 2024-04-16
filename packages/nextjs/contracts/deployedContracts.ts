@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   421614: {
     CryptoPatrons: {
-      address: "0xf524930660f75CF602e909C15528d58459AB2A56",
+      address: "0x5D8F7Cd72c8c802231d2279ac83D7B0aB495e946",
       abi: [
         {
           inputs: [],
@@ -186,11 +186,6 @@ const deployedContracts = {
               name: "minDonationUSD",
               type: "uint256",
             },
-            {
-              internalType: "string[]",
-              name: "prohibitedWords",
-              type: "string[]",
-            },
           ],
           name: "createProfile",
           outputs: [],
@@ -253,6 +248,46 @@ const deployedContracts = {
         },
         {
           inputs: [],
+          name: "getAllProfiles",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "username",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "description",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "profilePictureURL",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "minDonationUSD",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct CryptoPatrons.CreatorProfile[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
           name: "getLatestPrice",
           outputs: [
             {
@@ -300,11 +335,6 @@ const deployedContracts = {
                   internalType: "uint256",
                   name: "minDonationUSD",
                   type: "uint256",
-                },
-                {
-                  internalType: "string[]",
-                  name: "prohibitedWords",
-                  type: "string[]",
                 },
               ],
               internalType: "struct CryptoPatrons.CreatorProfile",
@@ -428,11 +458,6 @@ const deployedContracts = {
               internalType: "uint256",
               name: "minDonationUSD",
               type: "uint256",
-            },
-            {
-              internalType: "string[]",
-              name: "prohibitedWords",
-              type: "string[]",
             },
           ],
           name: "updateProfile",

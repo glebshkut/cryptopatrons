@@ -29,7 +29,6 @@ contract CryptoPatrons is Ownable {
 		string description;
 		string profilePictureURL;
 		uint minDonationUSD;
-		string[] prohibitedWords;
 	}
 
 	struct Donation {
@@ -53,12 +52,13 @@ contract CryptoPatrons is Ownable {
 		uint goalAmount
 	);
 	event FeesUpdated(uint feePercentage, uint minimumRequiredFeeUSD);
-  event DonationWithdrawn(string username, uint amount);
+	event DonationWithdrawn(string username, uint amount);
 
 	mapping(string => CreatorProfile) private _profiles;
 	mapping(string => Donation[]) private _donations;
 	mapping(string => address) private _profileOwners;
 	mapping(string => uint) private _donationsAmount;
+	string[] private _profileUsernames;
 
 	uint public feePercentage = 0;
 	uint public minimumRequiredFeeUSD = 0;
@@ -83,6 +83,24 @@ contract CryptoPatrons is Ownable {
 		string memory username
 	) public view returns (Donation[] memory) {
 		return _donations[username];
+	}
+
+	function getAllProfiles() public view returns (CreatorProfile[] memory) {
+		uint totalProfiles = _profileUsernames.length;
+		uint profileCount = totalProfiles > 10 ? 10 : totalProfiles;
+
+		CreatorProfile[] memory recentProfiles = new CreatorProfile[](
+			profileCount
+		);
+
+		// Loop through profiles in reverse order to get the most recent ones
+		for (uint i = 0; i < profileCount; i++) {
+			recentProfiles[i] = _profiles[
+				_profileUsernames[totalProfiles - i - 1]
+			];
+		}
+
+		return recentProfiles;
 	}
 
 	function getProfile(
@@ -153,8 +171,7 @@ contract CryptoPatrons is Ownable {
 		string memory name,
 		string memory description,
 		string memory profilePictureURL,
-		uint minDonationUSD,
-		string[] memory prohibitedWords
+		uint minDonationUSD
 	) public {
 		// Only the profile owner can update the profile.
 		require(
@@ -166,8 +183,7 @@ contract CryptoPatrons is Ownable {
 			username,
 			description,
 			profilePictureURL,
-			minDonationUSD,
-			prohibitedWords
+			minDonationUSD
 		);
 		emit ProfileUpdated(username);
 	}
@@ -177,8 +193,7 @@ contract CryptoPatrons is Ownable {
 		string memory name,
 		string memory description,
 		string memory profilePictureURL,
-		uint minDonationUSD,
-		string[] memory prohibitedWords
+		uint minDonationUSD
 	) public {
 		require(
 			_profileOwners[username] == address(0),
@@ -190,11 +205,10 @@ contract CryptoPatrons is Ownable {
 			username,
 			description,
 			profilePictureURL,
-			minDonationUSD,
-			prohibitedWords
+			minDonationUSD
 		);
 		_profileOwners[username] = msg.sender;
-
+		_profileUsernames.push(username);
 		emit ProfileUpdated(username);
 	}
 
