@@ -6,7 +6,7 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { mainContractName } from "~~/lib/contract";
 import { DonationValues } from "~~/types/donation";
 
-export default function DonationForm({ username }: { username: string }) {
+export default function DonationForm({ username, minDonationUSD }: { username: string; minDonationUSD: number }) {
   const [ethAmount, setEthAmount] = useState("0");
   const {
     register,
@@ -52,7 +52,7 @@ export default function DonationForm({ username }: { username: string }) {
         />
       </div>
       <div>
-        <div className="label-text">Amount:</div>
+        <div className="label-text">Amount {minDonationUSD > 0 && <span> (min {minDonationUSD} USD)</span>}</div>
         <EtherInput value={ethAmount} onChange={value => setEthAmount(value)} />
       </div>
       <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`}>

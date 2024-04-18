@@ -24,7 +24,6 @@ contract CryptoPatrons is Ownable {
 	}
 
 	struct CreatorProfile {
-		string name;
 		string username;
 		string description;
 		string profilePictureURL;
@@ -107,7 +106,7 @@ contract CryptoPatrons is Ownable {
 		string memory username
 	) public view returns (CreatorProfile memory) {
 		require(
-			bytes(_profiles[username].name).length != 0,
+			bytes(_profiles[username].profilePictureURL).length != 0,
 			"Profile does not exist"
 		);
 		return _profiles[username];
@@ -168,7 +167,6 @@ contract CryptoPatrons is Ownable {
 	// Function to update creator profile (Only creator can update their profile)
 	function updateProfile(
 		string memory username,
-		string memory name,
 		string memory description,
 		string memory profilePictureURL,
 		uint minDonationUSD
@@ -179,7 +177,6 @@ contract CryptoPatrons is Ownable {
 			"Not authorized to update this profile"
 		);
 		_profiles[username] = CreatorProfile(
-			name,
 			username,
 			description,
 			profilePictureURL,
@@ -190,7 +187,6 @@ contract CryptoPatrons is Ownable {
 
 	function createProfile(
 		string memory username,
-		string memory name,
 		string memory description,
 		string memory profilePictureURL,
 		uint minDonationUSD
@@ -201,7 +197,6 @@ contract CryptoPatrons is Ownable {
 		);
 
 		_profiles[username] = CreatorProfile(
-			name,
 			username,
 			description,
 			profilePictureURL,

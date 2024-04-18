@@ -9,7 +9,6 @@ import { mainContractName } from "~~/lib/contract";
 
 interface ProfileValues {
   username: string;
-  name: string;
   description: string;
   profilePictureURL: string;
   minDonationUSD: string;
@@ -58,13 +57,7 @@ export default function CreatorRegister() {
   const { writeAsync, isLoading, isSuccess } = useScaffoldContractWrite({
     contractName: mainContractName,
     functionName: "createProfile",
-    args: [
-      watch("username"),
-      watch("name"),
-      watch("description"),
-      watch("profilePictureURL"),
-      BigInt(watch("minDonationUSD")),
-    ],
+    args: [watch("username"), watch("description"), watch("profilePictureURL"), BigInt(watch("minDonationUSD"))],
     blockConfirmations: 3,
     onBlockConfirmation: txnReceipt => {
       console.log("Transaction blockHash", txnReceipt.blockHash);
@@ -89,18 +82,9 @@ export default function CreatorRegister() {
           <input
             className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
             {...register("username", { required: true })}
-            placeholder="Your name..."
+            placeholder="Your username..."
           />
           {errors.username && <span>This field is required</span>}
-        </div>
-        <div>
-          <div className="label-text">Name:</div>
-          <input
-            className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
-            {...register("name", { required: true })}
-            placeholder="Name..."
-          />
-          {errors.name && <span>This field is required</span>}
         </div>
         <div>
           <div className="label-text">Description:</div>
