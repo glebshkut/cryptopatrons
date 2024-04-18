@@ -11,7 +11,7 @@ export default function DonationForm({ username }: { username: string }) {
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm<DonationValues>({
     defaultValues: {
@@ -22,7 +22,7 @@ export default function DonationForm({ username }: { username: string }) {
   const { writeAsync, isLoading } = useScaffoldContractWrite({
     contractName: mainContractName,
     functionName: "makeDonation",
-    args: [username, getValues("donorName"), getValues("message")],
+    args: [username, watch("donorName"), watch("message")],
     value: parseEther(ethAmount),
     blockConfirmations: 1,
     onBlockConfirmation: txnReceipt => {

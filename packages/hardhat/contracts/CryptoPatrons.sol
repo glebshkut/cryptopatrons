@@ -145,7 +145,7 @@ contract CryptoPatrons is Ownable {
 		_donations[username].push(
 			Donation(donorName, message, msg.value - feeAmount, block.timestamp)
 		);
-		_donationsAmount[username] += msg.value - feeAmount;
+		_donationsAmount[username] += (msg.value - feeAmount);
 		emit DonationMade(username, donorName, msg.value - feeAmount, message);
 	}
 

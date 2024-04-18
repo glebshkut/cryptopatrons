@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { etherValueToDisplayValue } from "../scaffold-eth";
+import { etherValueToDisplayValue } from "../../scaffold-eth";
+import useSound from "use-sound";
 import { Log, formatEther } from "viem";
 import { useScaffoldEventSubscriber } from "~~/hooks/scaffold-eth";
 import { mainContractName } from "~~/lib/contract";
@@ -11,6 +12,10 @@ import { useGlobalState } from "~~/services/store/store";
 import { DonationAlertValues } from "~~/types/donation";
 
 export default function DonationWidget({ username }: { username: string }) {
+  const [play, { stop }] = useSound("/alert.mp3", {
+    volume: 0.5,
+    interrupt: true,
+  });
   const [recentEvent, setRecentEvent] = useState<Log | null>(null);
   const [showAlert, setShowAlert] = useState(false);
   const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
@@ -35,13 +40,15 @@ export default function DonationWidget({ username }: { username: string }) {
   });
 
   useEffect(() => {
-    if (recentEvent) {
+    if (recentEvent && showAlert) {
+      play();
       const timer = setTimeout(() => {
         setShowAlert(false);
-      }, 5000);
+        stop();
+      }, 7000);
       return () => clearTimeout(timer); // Clean up the timeout
     }
-  }, [recentEvent]);
+  }, [play, recentEvent, showAlert, stop]);
 
   if (recentEvent) {
     const donationValues: DonationAlertValues = (recentEvent as any).args as DonationAlertValues;

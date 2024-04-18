@@ -46,6 +46,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "@chainlink/contracts": "^1.0.0",
-    "react-hook-form": "^7.51.2"
+    "react-hook-form": "^7.51.2",
+    "use-sound": "^4.0.1"
   }
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 // import lighthouse from "@lighthouse-web3/sdk";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
@@ -41,11 +43,11 @@ export default function CreatorRegister() {
 
   //   console.log("Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash);
   // };
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm<ProfileValues>({
     defaultValues: {
@@ -53,15 +55,15 @@ export default function CreatorRegister() {
     },
   });
 
-  const { writeAsync, isLoading } = useScaffoldContractWrite({
+  const { writeAsync, isLoading, isSuccess } = useScaffoldContractWrite({
     contractName: mainContractName,
     functionName: "createProfile",
     args: [
-      getValues("username"),
-      getValues("name"),
-      getValues("description"),
-      getValues("profilePictureURL"),
-      BigInt(getValues("minDonationUSD")),
+      watch("username"),
+      watch("name"),
+      watch("description"),
+      watch("profilePictureURL"),
+      BigInt(watch("minDonationUSD")),
     ],
     blockConfirmations: 3,
     onBlockConfirmation: txnReceipt => {
@@ -70,6 +72,12 @@ export default function CreatorRegister() {
   });
 
   const onSubmit: SubmitHandler<ProfileValues> = () => writeAsync();
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(`/${watch("username")}`);
+    }
+  }, [isSuccess, router, watch]);
 
   return (
     <div className="flex flex-col items-center px-5 pt-5 gap-3">
