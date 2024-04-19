@@ -28,6 +28,12 @@ const nextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "gateway.lighthouse.storage",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };
