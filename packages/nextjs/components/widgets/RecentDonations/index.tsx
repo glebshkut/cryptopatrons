@@ -36,10 +36,10 @@ export default function RecentDonations({ username }: { username: string }) {
             const stringAmount = formatEther(donation.amount).toString();
             const amount = stringAmount.length > 8 ? stringAmount.substring(0, 6) : stringAmount;
             return (
-              <div key={index} className="flex flex-row gap-3 w-full bg-info font-medium p-4 rounded-md">
+              <div key={index} className="flex flex-row gap-3 w-full bg-info p-4 rounded-md">
                 <div className="flex flex-col gap-1 w-full">
                   <div className="flex flex-row justify-between gap-2 w-full">
-                    <div>{donation.donorName}</div>
+                    <div className="font-medium">{donation.donorName}</div>
                     <div>{amount} ETH</div>
                   </div>
                   <div className="text-center whitespace-break-spaces">{donation.message}</div>
