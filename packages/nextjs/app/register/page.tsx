@@ -72,51 +72,53 @@ export default function CreatorRegister() {
   }, [isSuccess, router, watch]);
 
   return (
-    <div className="flex flex-col items-center p-5 md:px-32 gap-3">
-      <span className="text-2xl">Creator Registration form</span>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-3">
-        <div>
-          <div className="label-text">Your name:</div>
-          <input
-            className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
-            {...register("username", { required: true })}
-            placeholder="Your username..."
-          />
-          {errors.username && <span className="text-red-600 text-sm">This field is required</span>}
-        </div>
-        <div>
-          <div className="label-text">Description:</div>
-          <textarea
-            className="textarea textarea-primary w-full rounded-md !outline-none"
-            {...register("description", { required: true })}
-            placeholder="Description..."
-          />
-          {errors.description && <span className="text-red-600 text-sm">This field is required</span>}
-        </div>
-        <div>
-          <div className="label-text">Minimum Donation (USD):</div>
-          <input
-            type="number"
-            className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
-            {...register("minDonationUSD", { required: true })}
-            placeholder="Minimum Donation (USD)..."
-          />
-          {errors.minDonationUSD && <span className="text-red-600 text-sm">This field is required</span>}
-        </div>
-        <div>
-          <div className="label-text">Profile Picture URL:</div>
-          <input
-            type="file"
-            className="file-input file-input-bordered file-input-md my-2 file-input-secondary w-full max-w-sm"
-            accept="image/jpeg, image/png"
-            onChange={uploadFile}
-          />
-          {errors.profilePictureURL && <span className="text-red-600 text-sm">This field is required</span>}
-        </div>
-        <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`}>
-          Create a profile
-        </button>
-      </form>
+    <div className="flex flex-col items-center p-5 gap-3">
+      <div className="w-full md:w-1/2 flex flex-col items-center gap-3 ">
+        <span className="text-2xl">Creator Registration form</span>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-3">
+          <div>
+            <div className="label-text">Your name:</div>
+            <input
+              className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
+              {...register("username", { required: true })}
+              placeholder="Your username..."
+            />
+            {errors.username && <span className="text-red-600 text-sm">This field is required</span>}
+          </div>
+          <div>
+            <div className="label-text">Description:</div>
+            <textarea
+              className="textarea textarea-primary w-full rounded-md !outline-none"
+              {...register("description", { required: true })}
+              placeholder="Description..."
+            />
+            {errors.description && <span className="text-red-600 text-sm">This field is required</span>}
+          </div>
+          <div>
+            <div className="label-text">Minimum Donation (USD):</div>
+            <input
+              type="number"
+              className="input input-primary w-full rounded-md h-[2.2rem] min-h-[2.2rem] !outline-none"
+              {...register("minDonationUSD", { required: true })}
+              placeholder="Minimum Donation (USD)..."
+            />
+            {errors.minDonationUSD && <span className="text-red-600 text-sm">This field is required</span>}
+          </div>
+          <div>
+            <div className="label-text">Profile Picture URL:</div>
+            <input
+              type="file"
+              className="file-input file-input-bordered file-input-md my-2 file-input-secondary w-full"
+              accept="image/jpeg, image/png"
+              onChange={uploadFile}
+            />
+            {errors.profilePictureURL && <span className="text-red-600 text-sm">This field is required</span>}
+          </div>
+          <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`}>
+            Create a profile
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

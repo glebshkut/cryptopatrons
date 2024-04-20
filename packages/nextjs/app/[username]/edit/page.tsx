@@ -12,6 +12,7 @@ import { notification } from "~~/utils/scaffold-eth";
 
 export default function CreatorEditPage({ params }: { params: { username: string } }) {
   const baseUrl = window.location.origin;
+  const donationLink = `${baseUrl}/${params.username}${AppRoutes.USER_DONATE}`;
   const isProfileOwner = useIsProfileOwner(params.username);
   const [usdMode, setUsdMode] = useState<string>("false");
   const [color, setColor] = useState<ColorResult["hex"]>("#000000");
@@ -20,10 +21,9 @@ export default function CreatorEditPage({ params }: { params: { username: string
     [baseUrl, params.username, usdMode, color],
   );
 
-  const handleCopyLink = () => {
-    const isCopied = copy(link, {
+  const handleCopyLink = (isDonationLink?: boolean) => {
+    const isCopied = copy(isDonationLink ? donationLink : link, {
       debug: true,
-      message: "Press #{key} to copy",
     });
     if (isCopied) {
       notification.success("Link copied to the clipboard");
@@ -45,7 +45,7 @@ export default function CreatorEditPage({ params }: { params: { username: string
     );
 
   return (
-    <div className="min-h-page p-5">
+    <div className="min-h-page p-5 flex flex-col gap-5">
       <div className="flex lg:flex-row flex-col justify-center lg:items-stretch items-center gap-5 h-full">
         <div className="relative bg-secondary w-full flex-1 lg:w-1/2 duration-300 p-5 rounded-md flex flex-col gap-3 items-center">
           <Link href={`/${params.username}`} className="absolute top-2 left-0">
@@ -73,7 +73,10 @@ export default function CreatorEditPage({ params }: { params: { username: string
             </span>
             <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-full text-center">
               <span>{link}</span>
-              <div className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer" onClick={handleCopyLink}>
+              <div
+                className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
+                onClick={() => handleCopyLink()}
+              >
                 <CopyIcon />
               </div>
             </div>
@@ -83,6 +86,24 @@ export default function CreatorEditPage({ params }: { params: { username: string
           <span className="text-2xl text-center">Widget preview</span>
           <div className="flex flex-col gap-3 justify-center items-center h-full">
             <DonationAlert username={params.username} previewValues={{ color, usdMode }} />
+          </div>
+        </div>
+      </div>
+      <div className="bg-secondary w-full p-5 rounded-md flex flex-col gap-3 items-center">
+        <span className="text-2xl text-center">
+          Share this{" "}
+          <Link className="underline underline-offset-4" href={donationLink}>
+            donation page
+          </Link>{" "}
+          with your viewers
+        </span>
+        <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-fit text-center">
+          <span>{donationLink}</span>
+          <div
+            className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
+            onClick={() => handleCopyLink(true)}
+          >
+            <CopyIcon />
           </div>
         </div>
       </div>
