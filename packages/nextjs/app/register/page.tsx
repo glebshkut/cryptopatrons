@@ -72,7 +72,7 @@ export default function CreatorRegister() {
   }, [isSuccess, router, watch]);
 
   return (
-    <div className="flex flex-col items-center px-5 pt-5 gap-3">
+    <div className="flex flex-col items-center p-5 md:px-32 gap-3">
       <span className="text-2xl">Creator Registration form</span>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-3">
         <div>
