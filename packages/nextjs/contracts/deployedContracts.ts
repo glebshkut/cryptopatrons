@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   421614: {
     CryptoPatrons: {
-      address: "0x32f069422B3f155ba074433f0dA2D66136850761",
+      address: "0x2ABD0b99D79c4cB6c43D1C221B1592EbE0925Ebf",
       abi: [
         {
           inputs: [],

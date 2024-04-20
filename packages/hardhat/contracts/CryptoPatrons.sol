@@ -111,6 +111,7 @@ contract CryptoPatrons is Ownable {
 		);
 		return _profiles[username];
 	}
+  
 
 	// Function for making donations
 	function makeDonation(
