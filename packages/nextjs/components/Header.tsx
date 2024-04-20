@@ -13,6 +13,7 @@ export enum AppRoutes {
   REGISTER = "/register",
   USER_DONATE = "/donate",
   USER_WIDGET = "/widget",
+  USER_EDIT = "/edit",
 }
 
 type HeaderMenuLink = {

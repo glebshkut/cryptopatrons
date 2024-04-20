@@ -207,6 +207,10 @@ contract CryptoPatrons is Ownable {
 		emit ProfileUpdated(username);
 	}
 
+  function getProfileOwner(string memory username) public view returns (address) {
+    return _profileOwners[username];
+  }
+
 	// Function to withdraw donations
 	function withdrawDonations(string memory username) public {
 		require(

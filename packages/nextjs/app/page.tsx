@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <span className="text-4xl">
         Crypto<b>Patrons</b>
       </span>
-      <span className="italic">Receive crypto donations & engage with your audience with ease</span>
+      <span className="italic text-center">Receive crypto donations & engage with your audience with ease</span>
       <Link href={AppRoutes.REGISTER} className="btn btn-primary btn-lg text-neutral">
         Create your profile
       </Link>

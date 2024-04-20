@@ -82,6 +82,9 @@ module.exports = {
         header: "var(--header-height)",
         page: "var(--page-height)",
       },
+      minHeight: {
+        page: "var(--page-height)",
+      },
       animation: {
         "pulse-fast": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
