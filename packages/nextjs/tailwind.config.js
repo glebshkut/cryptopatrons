@@ -8,22 +8,26 @@ module.exports = {
     themes: [
       {
         light: {
-          primary: "#93BBFB",
+          primary: "#246EB9",
           "primary-content": "#212638",
-          secondary: "#DAE8FF",
+          secondary: "#CCE0F5",
           "secondary-content": "#212638",
-          accent: "#93BBFB",
+          accent: "#CCE0F5",
           "accent-content": "#212638",
-          neutral: "#212638",
+          neutral: "#F8F4E3",
           "neutral-content": "#ffffff",
           "base-100": "#ffffff",
           "base-200": "#f4f8ff",
-          "base-300": "#DAE8FF",
+          "base-300": "#F8F4E3",
           "base-content": "#212638",
-          info: "#93BBFB",
+          info: "#88B8E7",
           success: "#34EEB6",
           warning: "#FFCF72",
           error: "#FF8863",
+
+          ".btn-primary": {
+            color: "#F8F4E3",
+          },
 
           "--rounded-btn": "9999rem",
 
