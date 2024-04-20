@@ -17,12 +17,19 @@ const Home: NextPage = () => {
     contractName: mainContractName,
     functionName: "getAllProfiles",
   });
+
   return (
     <div className="h-page flex flex-col justify-center items-center gap-3 relative pt-16">
       <span className="text-4xl">
         Crypto<b>Patrons</b>
       </span>
-      <span className="italic text-center">Receive crypto donations & engage with your audience with ease</span>
+      <p className="italic text-2xl my-4 text-center">
+        Empower your creativity & engage with your audience using crypto
+      </p>
+      <p className="text-center max-w-md mx-auto my-0">
+        Join the unique circle of creators leveraging the power of digital currency. Instant alerts, rapid setup, and
+        built on secure blockchain technology
+      </p>
       <Link href={AppRoutes.REGISTER} className="btn btn-primary btn-lg text-neutral">
         Create your profile
       </Link>
