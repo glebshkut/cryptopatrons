@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import copy from "copy-to-clipboard";
-import { ColorResult, SketchPicker } from "react-color";
+import { ChromePicker, ColorResult } from "react-color";
 import { AppRoutes } from "~~/components/Header";
 import { useIsProfileOwner } from "~~/components/hooks/useIsProfileOwner";
 import { CopyIcon, LeftArrowIcon } from "~~/components/ui/Icons";
@@ -66,7 +66,7 @@ export default function CreatorEditPage({ params }: { params: { username: string
               <span className="label-text ml-3">USD mode</span>
             </label>
           </div>
-          <SketchPicker color={color} onChange={color => setColor(color.hex)} />
+          <ChromePicker disableAlpha color={color} onChange={color => setColor(color.hex)} />
           <div className="flex flex-col gap-3 items-center mt-10">
             <span className="text-md text-center">
               Your unique alert link is ready. Use it in your streaming tool (ex. OBS)
