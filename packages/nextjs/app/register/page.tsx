@@ -16,8 +16,9 @@ interface ProfileValues {
 
 const progressCallback = (progressData: { total: number; uploaded: number } | undefined) => {
   if (!progressData) return;
-  const percentageDone = 100 - progressData.total / progressData.uploaded;
-  console.log(percentageDone);
+  if (progressData.total === progressData.uploaded) {
+    console.log("image is uploaded");
+  }
 };
 
 export default function CreatorRegister() {
@@ -50,18 +51,19 @@ export default function CreatorRegister() {
     }
   };
 
-  const { writeAsync, isLoading, isSuccess } = useScaffoldContractWrite({
+  const data = useScaffoldContractWrite({
     contractName: mainContractName,
     functionName: "createProfile",
     args: [watch("username"), watch("description"), watch("profilePictureURL"), BigInt(watch("minDonationUSD"))],
-    blockConfirmations: 3,
     onBlockConfirmation: txnReceipt => {
       console.log("Transaction blockHash", txnReceipt.blockHash);
     },
   });
+  const { writeAsync, isLoading, isSuccess } = data;
+  console.log("🚀 ~ CreatorRegister ~ data:", data);
 
   const onSubmit: SubmitHandler<ProfileValues> = () => {
-    if (errors.username || errors.description || errors.profilePictureURL || errors.minDonationUSD) return;
+    if (!watch("username") || !watch("description") || !watch("profilePictureURL") || errors.minDonationUSD) return;
     writeAsync();
   };
 

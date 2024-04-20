@@ -4,10 +4,15 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import copy from "copy-to-clipboard";
 import { ChromePicker, ColorResult } from "react-color";
+import { formatEther } from "viem";
 import { AppRoutes } from "~~/components/Header";
 import { useIsProfileOwner } from "~~/components/hooks/useIsProfileOwner";
+import { etherValueToDisplayValue } from "~~/components/scaffold-eth";
 import { CopyIcon, LeftArrowIcon } from "~~/components/ui/Icons";
 import DonationAlert from "~~/components/widgets/DonationAlert";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { mainContractName } from "~~/lib/contract";
+import { useGlobalState } from "~~/services/store/store";
 import { notification } from "~~/utils/scaffold-eth";
 
 export default function CreatorEditPage({ params }: { params: { username: string } }) {
@@ -20,6 +25,18 @@ export default function CreatorEditPage({ params }: { params: { username: string
     () => `${baseUrl}/${params.username}${AppRoutes.USER_WIDGET}?usdMode=${usdMode}&color=${encodeURIComponent(color)}`,
     [baseUrl, params.username, usdMode, color],
   );
+
+  const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
+  const { data: donationAmount, isFetched: isDonationAmountFetched } = useScaffoldContractRead({
+    contractName: mainContractName,
+    functionName: "getDonationsAmount",
+    args: [params.username],
+  });
+  const { writeAsync: withdrawFunds, isLoading } = useScaffoldContractWrite({
+    contractName: mainContractName,
+    functionName: "withdrawDonations",
+    args: [params.username],
+  });
 
   const handleCopyLink = (isDonationLink?: boolean) => {
     const isCopied = copy(isDonationLink ? donationLink : link, {
@@ -89,22 +106,45 @@ export default function CreatorEditPage({ params }: { params: { username: string
           </div>
         </div>
       </div>
-      <div className="bg-secondary w-full p-5 rounded-md flex flex-col gap-3 items-center">
-        <span className="text-2xl text-center">
-          Share this{" "}
-          <Link className="underline underline-offset-4" href={donationLink}>
-            donation page
-          </Link>{" "}
-          with your viewers
-        </span>
-        <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-fit text-center">
-          <span>{donationLink}</span>
-          <div
-            className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
-            onClick={() => handleCopyLink(true)}
-          >
-            <CopyIcon />
+      <div className="flex lg:flex-row flex-col w-full gap-5">
+        <div className="bg-secondary w-full p-5 rounded-md flex flex-col gap-3 items-center">
+          <span className="text-2xl text-center">
+            Share this{" "}
+            <Link className="underline underline-offset-4" href={donationLink}>
+              donation page
+            </Link>{" "}
+            with your viewers
+          </span>
+          <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-fit text-center">
+            <span>{donationLink}</span>
+            <div
+              className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
+              onClick={() => handleCopyLink(true)}
+            >
+              <CopyIcon />
+            </div>
           </div>
+        </div>
+        <div className="bg-secondary w-full p-5 rounded-md flex flex-col gap-3 items-center">
+          {isDonationAmountFetched && donationAmount ? (
+            <>
+              <span className="text-2xl text-center">Withdraw funds</span>
+              <span>
+                Total collected:{" "}
+                {etherValueToDisplayValue(
+                  false,
+                  formatEther(donationAmount).toString().substring(0, 6),
+                  nativeCurrencyPrice,
+                )}{" "}
+                ETH
+              </span>
+            </>
+          ) : (
+            <span className="text-2xl text-center">No funds to withdraw yet</span>
+          )}
+          <button className={`btn btn-primary ${isLoading ? "loading" : ""}`} onClick={async () => withdrawFunds()}>
+            Withdraw
+          </button>
         </div>
       </div>
     </div>
