@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import lighthouse from "@lighthouse-web3/sdk";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -33,6 +34,8 @@ export default function CreatorRegister() {
   } = useForm<ProfileValues>({
     defaultValues: {
       minDonationUSD: "0",
+      username: "",
+      profilePictureURL: "",
     },
   });
 
@@ -51,16 +54,19 @@ export default function CreatorRegister() {
     }
   };
 
-  const data = useScaffoldContractWrite({
+  const { writeAsync, isLoading, isSuccess } = useScaffoldContractWrite({
     contractName: mainContractName,
     functionName: "createProfile",
-    args: [watch("username"), watch("description"), watch("profilePictureURL"), BigInt(watch("minDonationUSD"))],
+    args: [
+      watch("username").toLowerCase(),
+      watch("description"),
+      watch("profilePictureURL"),
+      BigInt(watch("minDonationUSD")),
+    ],
     onBlockConfirmation: txnReceipt => {
       console.log("Transaction blockHash", txnReceipt.blockHash);
     },
   });
-  const { writeAsync, isLoading, isSuccess } = data;
-  console.log("🚀 ~ CreatorRegister ~ data:", data);
 
   const onSubmit: SubmitHandler<ProfileValues> = () => {
     if (!watch("username") || !watch("description") || !watch("profilePictureURL") || errors.minDonationUSD) return;
@@ -68,10 +74,10 @@ export default function CreatorRegister() {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      router.push(`/${watch("username")}`);
+    if (!isLoading && isSuccess) {
+      router.push(`/${watch("username").toLowerCase()}`);
     }
-  }, [isSuccess, router, watch]);
+  }, [isLoading, isSuccess, router, watch]);
 
   return (
     <div className="flex flex-col items-center p-5 gap-3">
@@ -114,6 +120,17 @@ export default function CreatorRegister() {
               accept="image/jpeg, image/png"
               onChange={uploadFile}
             />
+            {watch("profilePictureURL").length > 0 && (
+              <div className="relative">
+                <Image
+                  src={watch("profilePictureURL")}
+                  alt="profile picture"
+                  className="rounded-md"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            )}
             {errors.profilePictureURL && <span className="text-red-600 text-sm">This field is required</span>}
           </div>
           <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`}>

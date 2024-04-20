@@ -191,36 +191,21 @@ function createProfile(
   string memory profilePictureURL,
   uint minDonationUSD
 ) public {
-  string memory lowercaseUsername = _toLower(username);
   require(
-    _profileOwners[lowercaseUsername] == address(0),
+    _profileOwners[username] == address(0),
     "Username already taken"
   );
 
 
-  _profiles[lowercaseUsername] = CreatorProfile(
-    lowercaseUsername,
+  _profiles[username] = CreatorProfile(
+    username,
     description,
     profilePictureURL,
     minDonationUSD
   );
-  _profileOwners[lowercaseUsername] = msg.sender;
-  _profileUsernames.push(lowercaseUsername);
-  emit ProfileUpdated(lowercaseUsername);
-}
-
-function _toLower(string memory str) internal pure returns (string memory) {
-  bytes memory bStr = bytes(str);
-  bytes memory bLower = new bytes(bStr.length);
-  for (uint i = 0; i < bStr.length; i++) {
-    // Uppercase character
-    if ((uint8(bStr[i]) >= 65) && (uint8(bStr[i]) <= 90)) {
-      bLower[i] = bytes1(uint8(bStr[i]) + 32);
-    } else {
-      bLower[i] = bStr[i];
-    }
-  }
-  return string(bLower);
+  _profileOwners[username] = msg.sender;
+  _profileUsernames.push(username);
+  emit ProfileUpdated(username);
 }
 
   function getProfileOwner(string memory username) public view returns (address) {
