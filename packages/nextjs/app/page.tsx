@@ -19,14 +19,14 @@ const Home: NextPage = () => {
   });
 
   return (
-    <div className="h-page flex flex-col justify-center items-center gap-3 relative pt-16">
+    <div className="h-page flex flex-col justify-center items-center gap-3 relative pt-16 px-0 md:px-5">
       <span className="text-4xl">
         Crypto<b>Patrons</b>
       </span>
-      <p className="italic text-2xl my-4 text-center">
+      <p className="italic text-2xl my-4 md:mx-0 mx-5 text-center">
         Empower your creativity & engage with your audience using crypto
       </p>
-      <p className="text-center max-w-md mx-auto my-0">
+      <p className="text-center max-w-md mx-2 md:mx-auto my-0">
         Join the unique circle of creators leveraging the power of digital currency. Instant alerts, rapid setup, and
         built on secure blockchain technology
       </p>
@@ -36,13 +36,13 @@ const Home: NextPage = () => {
       {profiles && areProfileReady && (
         <div className="flex flex-col gap-5 mt-10">
           <span className="text-xl text-center">These creators already joined us:</span>
-          <div className="embla" ref={emblaRef}>
+          <div className="embla md:w-full w-screen" ref={emblaRef}>
             <div className="embla__container">
               {profiles.map((profile: any) => (
                 <Link
                   href={`/${profile.username}`}
                   key={profile.username}
-                  className="embla__slide flex flex-col items-center justify-between bg-secondary h-full min-h-[140px] min-w-[240px] p-5 rounded-lg"
+                  className="embla__slide flex flex-col items-center justify-between bg-secondary h-full md:min-h-[140px] md:min-w-[240px] p-5 rounded-lg"
                 >
                   <Image src={profile.profilePictureURL} alt={profile.username} width={100} height={100} />
                   <span>{profile.username}</span>

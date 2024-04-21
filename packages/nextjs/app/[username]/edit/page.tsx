@@ -62,7 +62,7 @@ export default function CreatorEditPage({ params }: { params: { username: string
     );
 
   return (
-    <div className="min-h-page p-5 flex flex-col gap-5">
+    <div className="min-h-page p-3 md:p-5 flex flex-col gap-3 md:gap-5">
       <div className="flex lg:flex-row flex-col justify-center lg:items-stretch items-center gap-5 h-full">
         <div className="relative bg-secondary w-full flex-1 lg:w-1/2 duration-300 p-5 rounded-md flex flex-col gap-3 items-center">
           <Link href={`/${params.username}`} className="absolute top-2 left-0">
@@ -84,16 +84,16 @@ export default function CreatorEditPage({ params }: { params: { username: string
             </label>
           </div>
           <ChromePicker disableAlpha color={color} onChange={color => setColor(color.hex)} />
-          <div className="flex flex-col gap-3 items-center mt-10">
-            <span className="text-md text-center">
+          <div className="w-full flex flex-col gap-3 items-center mt-10">
+            <span className="text-sm md:text-md text-center">
               Your unique alert link is ready. Use it in your streaming tool (ex. OBS)
             </span>
-            <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-full text-center">
-              <span>{link}</span>
-              <div
-                className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
-                onClick={() => handleCopyLink()}
-              >
+            <div
+              className="relative bg-gray-400/20 px-3 md:pr-10 py-2 rounded-md w-full text-center"
+              onClick={() => handleCopyLink()}
+            >
+              <span className="md:text-[16px] text-xs">{link}</span>
+              <div className="absolute md:block hidden top-1/2 -translate-y-1/2 right-2 cursor-pointer">
                 <CopyIcon />
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function CreatorEditPage({ params }: { params: { username: string
             with your viewers
           </span>
           <div className="relative bg-gray-400/20 pl-3 pr-10 py-2 rounded-md w-fit text-center">
-            <span>{donationLink}</span>
+            <span className="md:text-[16px] text-xs">{donationLink}</span>
             <div
               className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
               onClick={() => handleCopyLink(true)}

@@ -26,18 +26,18 @@ export default function CreatorPage({ params }: { params: { username: string } }
 
   if (profile && isProfileReady) {
     return (
-      <div className="min-h-page flex flex-col p-10 gap-5 items-center w-full">
+      <div className="min-h-page flex flex-col p-3 md:p-10 gap-2 md:gap-5 items-center w-full">
         <div className="relative bg-secondary w-full flex flex-row gap-5 lg:w-1/2 duration-300 p-5 rounded-md">
           <Image
             src={profile.profilePictureURL}
             alt="profile picture"
-            className="rounded-md"
+            className="rounded-md md:w-[150px] w-[75px] md:h-[150px] h-[75px]"
             width={150}
             height={150}
           />
           <div className="flex flex-col">
-            <div className="text-3xl font-bold">{profile.username}</div>
-            <div className="text-xl font-medium">{profile.description}</div>
+            <div className="text-xl md:text-3xl font-bold">{profile.username}</div>
+            <div className="text-md md:text-xl font-medium">{profile.description}</div>
           </div>
           {isProfileOwner && (
             <Link href={`${params.username}${AppRoutes.USER_EDIT}`} className="absolute top-2 right-2">

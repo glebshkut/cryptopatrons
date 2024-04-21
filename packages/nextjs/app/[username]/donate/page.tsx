@@ -21,10 +21,10 @@ export default function DonatePage({ params }: { params: { username: string } })
   if (isProfileReady && profile) {
     return (
       <div className="h-page flex justify-center items-center">
-        <div className="relative w-1/2 flex justify-center">
+        <div className="relative px-5 w-full md:w-1/2 flex justify-center">
           <DonationWidget profile={profile} />
           <Link href={`/${params.username}`} className="absolute top-2 left-0">
-            <div className="relative right-10">
+            <div className="relative md:left-5 left-2 bottom-12 md:bottom-16 !md:right-16 rounded-full bg-secondary p-2 md:scale-100 scale-50">
               <LeftArrowIcon />
             </div>
           </Link>

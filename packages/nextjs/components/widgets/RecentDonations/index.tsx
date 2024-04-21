@@ -27,11 +27,11 @@ export default function RecentDonations({ username }: { username: string }) {
   }
   return (
     <div className="flex flex-col gap-3 w-full mx-auto items-center">
-      <div className="text-3xl">
+      <div className="text-xl md:text-3xl whitespace-nowrap">
         {(!areDonationsReady || !donations || donations.length < 1) && "No"} Recent Donations
       </div>
       {areDonationsReady && donations && donations.length > 0 && (
-        <div className="flex flex-col-reverse items-center w-full gap-3 mt-5">
+        <div className="flex flex-col-reverse items-center w-full gap-3 md:mt-5">
           {donations.map((donation: Donation, index: number) => {
             const stringAmount = formatEther(donation.amount).toString();
             const amount = stringAmount.length > 8 ? stringAmount.substring(0, 6) : stringAmount;

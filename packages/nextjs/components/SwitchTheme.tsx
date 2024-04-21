@@ -5,10 +5,11 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 export const SwitchTheme = ({ className }: { className?: string }) => {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const isDarkMode = resolvedTheme === "dark";
+  // const isDarkMode = resolvedTheme === "dark";
+  const isDarkMode = false;
 
   const handleToggle = () => {
     if (isDarkMode) {
